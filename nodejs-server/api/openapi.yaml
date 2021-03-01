@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Textual RPG engine
+  description: This is an API for a textual base RPG engine
+  contact:
+    email: no@email.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/Stryge/Textual_RPG_engine/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: admins
+  description: Secured Admin-only calls
+paths:
+  /test:
+    get:
+      description: route to test swagger codegen
+      operationId: test
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: is OK
+                x-content-type: text/plain
+      x-swagger-router-controller: Default
+  /signin:
+    post:
+      summary: create an account
+      description: Create an account by providing an email and a password
+      operationId: signIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        "200":
+          description: Account successfully created
+        "400":
+          description: Something went wrong during registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Default
+  /login:
+    post:
+      summary: log to an account
+      description: Log into your account by providing the email and password.
+      operationId: logIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        "200":
+          description: The user successfully login into his account
+        "403":
+          description: The authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    user:
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+          example: example@email.com
+        password:
+          type: string
+          example: 1234NotAGoodPassword
+    error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: email already in use
+  responses:
+    authenticationFailed:
+      description: The authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    registrationError:
+      description: Something went wrong during registration
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    notFound:
+      description: The specified ressource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    defaultError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
