@@ -14,9 +14,12 @@ servers:
 tags:
 - name: admins
   description: Secured Admin-only calls
+- name: test
 paths:
   /test:
     get:
+      tags:
+      - test
       description: route to test swagger codegen
       operationId: test
       responses:
@@ -28,7 +31,7 @@ paths:
                 type: string
                 example: is OK
                 x-content-type: text/plain
-      x-swagger-router-controller: Default
+      x-swagger-router-controller: Test
   /signin:
     post:
       summary: create an account

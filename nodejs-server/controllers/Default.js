@@ -22,13 +22,3 @@ module.exports.signIn = function signIn (req, res, next, body) {
       utils.writeJson(res, response);
     });
 };
-
-module.exports.test = function test (req, res, next) {
-  Default.test()
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
