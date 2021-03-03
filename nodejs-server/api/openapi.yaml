@@ -11,6 +11,7 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/Stryge/Textual_RPG_engine/1.0.0
   description: SwaggerHub API Auto Mocking
+- url: http://192.168.33.10:8080/
 tags:
 - name: admins
   description: Secured Admin-only calls
